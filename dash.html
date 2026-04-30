@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Whiskey Industries</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      background: #0a0a0f;
+      font-family: 'Inter', system-ui, sans-serif;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <script type="module">
+    import { app }  from "./firebase.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+    const ALLOWED_DOMAIN = "whikeyindustries.net";
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, user => {
+      if (!user || user.email.split("@")[1] !== ALLOWED_DOMAIN) {
+        window.location.replace("login.html");
+      }
+    });
+  </script>
+</body>
+</html>
