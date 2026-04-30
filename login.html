@@ -21,84 +21,40 @@
       overflow: hidden;
     }
 
-    /* ── Animated orbs ─────────────────────────────── */
-    .orbs {
+    /* ── Animated gradient background ─────────────── */
+    @keyframes gradientShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .bg-gradient {
       position: fixed;
       inset: 0;
       pointer-events: none;
-      overflow: hidden;
-    }
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: .25;
-      animation: drift linear infinite;
-    }
-    .orb-1 {
-      width: 520px; height: 520px;
-      background: #4f46e5;
-      top: -15%; left: -10%;
-      animation-duration: 22s;
-      animation-name: drift-1;
-    }
-    .orb-2 {
-      width: 420px; height: 420px;
-      background: #7c3aed;
-      top: 40%; right: -12%;
-      animation-duration: 28s;
-      animation-name: drift-2;
-    }
-    .orb-3 {
-      width: 360px; height: 360px;
-      background: #0891b2;
-      bottom: -10%; left: 30%;
-      animation-duration: 18s;
-      animation-name: drift-3;
-    }
-    .orb-4 {
-      width: 260px; height: 260px;
-      background: #6d28d9;
-      top: 15%; right: 20%;
-      opacity: .15;
-      animation-duration: 34s;
-      animation-name: drift-4;
+      background: linear-gradient(
+        -45deg,
+        #0a0a0f,
+        #0f0a2e,
+        #0a0f2e,
+        #0d0a1f,
+        #12062e,
+        #060d1f,
+        #0a0a0f
+      );
+      background-size: 400% 400%;
+      animation: gradientShift 18s ease infinite;
     }
 
-    @keyframes drift-1 {
-      0%   { transform: translate(0, 0) scale(1); }
-      33%  { transform: translate(60px, 80px) scale(1.08); }
-      66%  { transform: translate(-40px, 120px) scale(.95); }
-      100% { transform: translate(0, 0) scale(1); }
-    }
-    @keyframes drift-2 {
-      0%   { transform: translate(0, 0) scale(1); }
-      25%  { transform: translate(-80px, -60px) scale(1.1); }
-      50%  { transform: translate(-120px, 40px) scale(.92); }
-      75%  { transform: translate(-40px, -80px) scale(1.05); }
-      100% { transform: translate(0, 0) scale(1); }
-    }
-    @keyframes drift-3 {
-      0%   { transform: translate(0, 0) scale(1); }
-      40%  { transform: translate(-70px, -90px) scale(1.12); }
-      70%  { transform: translate(50px, -60px) scale(.9); }
-      100% { transform: translate(0, 0) scale(1); }
-    }
-    @keyframes drift-4 {
-      0%   { transform: translate(0, 0) scale(1); }
-      50%  { transform: translate(100px, 60px) scale(1.15); }
-      100% { transform: translate(0, 0) scale(1); }
-    }
-
-    /* ── Subtle grid overlay ───────────────────────── */
-    .grid-overlay {
+    /* ── Noise grain overlay ───────────────────────── */
+    .grain {
       position: fixed;
-      inset: 0;
+      inset: -50%;
+      width: 200%; height: 200%;
       pointer-events: none;
-      background-image:
-        linear-gradient(rgba(99,102,241,.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(99,102,241,.04) 1px, transparent 1px);
-      background-size: 48px 48px;
+      opacity: .03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
     }
 
     /* ── Glass card ────────────────────────────────── */
@@ -301,13 +257,8 @@
 <body>
 
   <!-- Animated background -->
-  <div class="orbs">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-    <div class="orb orb-4"></div>
-  </div>
-  <div class="grid-overlay"></div>
+  <div class="bg-gradient"></div>
+  <div class="grain"></div>
 
   <!-- Login card -->
   <div class="card">
